@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", monospace;
+  --font-mono: "Silkscreen", monospace;
+}
+
+body {
+  background-color: #050505;
+  color: #00ffff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #050505;
+}
+
+.glitch::before {
+  left: 4px;
+  text-shadow: -2px 0 #ff00ff;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -4px;
+  text-shadow: -2px 0 #00ffff;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(60% 0 10% 0); }
+  40% { clip-path: inset(40% 0 50% 0); }
+  60% { clip-path: inset(80% 0 5% 0); }
+  80% { clip-path: inset(10% 0 70% 0); }
+  100% { clip-path: inset(30% 0 20% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); }
+  20% { clip-path: inset(30% 0 20% 0); }
+  40% { clip-path: inset(70% 0 10% 0); }
+  60% { clip-path: inset(20% 0 50% 0); }
+  80% { clip-path: inset(90% 0 5% 0); }
+  100% { clip-path: inset(5% 0 80% 0); }
+}
+
+.scanlines {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
+  background-size: 100% 4px;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.static-noise {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 45;
+  mix-blend-mode: overlay;
+}
+
+.screen-tear {
+  animation: tear 5s infinite;
+}
+
+@keyframes tear {
+  0%, 90%, 100% { transform: translateX(0); }
+  92% { transform: translateX(-15px) skewX(15deg); }
+  94% { transform: translateX(15px) skewX(-15deg); }
+  96% { transform: translateX(-5px) skewX(5deg); }
+}
+
+.jarring-border {
+  border: 4px solid #00ffff;
+  box-shadow: 4px 4px 0px #ff00ff;
+}
+
+.jarring-border-alt {
+  border: 4px solid #ff00ff;
+  box-shadow: -4px 4px 0px #00ffff;
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.95; }
+  100% { opacity: 1; }
+}
